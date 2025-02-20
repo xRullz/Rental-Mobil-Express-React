@@ -8,7 +8,6 @@ export default function FormUpdateRental() {
   const { id } = useParams(); // Ambil ID user dari URL
   const [formData, setFormData] = useState({
     car_id: "",
-    user_id: "",
     start_date: "",
     end_date: "",
     payment_method: "",
@@ -25,7 +24,6 @@ export default function FormUpdateRental() {
         if (response.ok) {
           const car = await response.json();
           setFormData({
-            user_id: car.user_name || "",
             car_id: car.car_model || "",
             start_date: car.start_date || "",
             end_date: car.end_date || "",
@@ -118,20 +116,6 @@ export default function FormUpdateRental() {
                 <div className="card-body pt-4">
                   <form onSubmit={handleSubmit}>
                     <div className="row">
-                      <div className="col-md-6">
-                        <div className="form-group">
-                          <label>Penyewa</label>
-                          <input
-                            name="user_id"
-                            type="text"
-                            readOnly
-                            value={formData.user_id}
-                            onChange={handleChange}
-                            className="form-control"
-                            required
-                          />
-                        </div>
-                      </div>
                       <div className="col-md-6">
                         <div className="form-group">
                           <label>Mobil</label>

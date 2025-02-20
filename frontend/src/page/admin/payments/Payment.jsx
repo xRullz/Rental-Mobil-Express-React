@@ -3,7 +3,7 @@ import Table from "../../../components/Table";
 
 const Payment = () => {
   const [payments, setPayment] = useState([]);
-  const columns = ["nama", "total_harga", "metode_pembayaran", "status"];
+  const columns = ["total_harga", "metode_pembayaran", "status"];
 
   useEffect(() => {
     const fetchPayments = async () => {
@@ -18,7 +18,6 @@ const Payment = () => {
 
         const formattedData = result.map((payment) => ({
           id: payment.id,
-          nama: payment.user_name,
           total_harga: payment.total_price,
           metode_pembayaran: payment.payment_method,
           status: payment.status,

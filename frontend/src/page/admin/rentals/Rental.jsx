@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const Rental = () => {
   const [rentals, setRentals] = useState([]);
-  const columns = ["nama", "mobil", "tanggal_pinjam", "tanggal_kembali", "total_harga", "status"];
+  const columns = ["mobil", "tanggal_pinjam", "tanggal_kembali", "total_harga", "status"];
 
   useEffect(() => {
     const fetchRentals = async () => {
@@ -25,7 +25,6 @@ const Rental = () => {
         
         const formattedData = result.map((rentals) => ({
           id: rentals.id,
-          nama: rentals.user_name,
           mobil: rentals.car_model,
           tanggal_pinjam: formatDate(rentals.start_date),
           tanggal_kembali: formatDate(rentals.end_date),

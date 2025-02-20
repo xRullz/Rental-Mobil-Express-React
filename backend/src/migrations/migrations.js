@@ -1,16 +1,9 @@
-import { createConnection } from "mysql2";
 import koneksi from "../models/db.js";
-
-const konekMysql = createConnection({
-  host: "localhost",
-  user: "rull",
-  password: "rull",
-});
 
 // Membuat database jika belum ada
 const createDatabase = () => {
   return new Promise((resolve, reject) => {
-    konekMysql.query("CREATE DATABASE IF NOT EXISTS rentalmobil", (err, result) => {
+    koneksi.query("CREATE DATABASE IF NOT EXISTS rentalmobil", (err, result) => {
       if (err) {
         console.error("Error membuat database", err.stack);
         reject(err);
@@ -70,7 +63,6 @@ const createCarTable = () => {
 const createRentalTable = () => {
   const q = `CREATE TABLE IF NOT EXISTS rentals (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        user_id INT NOT NULL,
         car_id INT NOT NULL,
         start_date DATE NOT NULL,
         end_date DATE NOT NULL,
@@ -78,7 +70,6 @@ const createRentalTable = () => {
         status ENUM('PENDING', 'ACTIVE' ,'COMPLETED', 'CANCELLED') DEFAULT 'PENDING',
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
         FOREIGN KEY (car_id) REFERENCES cars(id) ON DELETE CASCADE
     )`;
 
@@ -95,13 +86,11 @@ const createPaymentTable = () => {
   const query = `CREATE TABLE IF NOT EXISTS payments (
         id INT AUTO_INCREMENT PRIMARY KEY,
         rental_id INT NOT NULL,
-        user_id INT NOT NULL,
         total_price BIGINT NOT NULL,
         payment_method ENUM('TUNAI', 'KARTU KREDIT', 'TRANSFER BANK') NOT NULL,
         status ENUM('PENDING', 'PAID', 'FAILED') DEFAULT 'PENDING',
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (rental_id) REFERENCES rentals(id) ON DELETE CASCADE,
-        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        FOREIGN KEY (rental_id) REFERENCES rentals(id) ON DELETE CASCADE
     )`;
 
   koneksi.query(query, (err) => {
@@ -129,7 +118,7 @@ const migration = async () => {
     createCarTable();
     createRentalTable();
     createPaymentTable();
-    konekMysql.end();
+    koneksi.end();
   } catch (error) {
     console.error("Error dalam migrasi:", error);
   }

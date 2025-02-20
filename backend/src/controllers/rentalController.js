@@ -28,9 +28,9 @@ const showRental = (req, res) => {
 };
 
 const storeRental = (req, res) => {
-  const { user_id, car_id, start_date, end_date, payment_method } = req.body;
+  const { car_id, start_date, end_date, payment_method } = req.body;
 
-  if (!user_id || !car_id || !start_date || !end_date || !payment_method) {
+  if (!car_id || !start_date || !end_date || !payment_method) {
     return res.status(400).json({ message: "Semua data harus diisi" });
   }
 
@@ -68,7 +68,6 @@ const storeRental = (req, res) => {
     const status = "PENDING";
     // Simpan rental ke database
     Rental.insertRental(
-      user_id,
       car_id,
       start_date,
       end_date,
@@ -82,7 +81,6 @@ const storeRental = (req, res) => {
         // Tambahkan pembayaran terkait rental ini
         Payment.insertPayment(
           rental_id,
-          user_id,
           total_price,
           payment_method,
           "PENDING",

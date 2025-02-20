@@ -7,7 +7,6 @@ export default function FormRental() {
   const router = useNavigate();
   const [formData, setFormData] = useState({
     car_id: "",
-    user_id: "",
     start_date: "",
     end_date: "",
     payment_method: "",
@@ -15,9 +14,6 @@ export default function FormRental() {
   });
 
   const [cars, setCars] = useState([]);
-  const [users, setUsers] = useState([]);
-
-  console.log(formData);
 
   const fetchCars = async () => {
     try {
@@ -29,19 +25,8 @@ export default function FormRental() {
     }
   };
 
-  const fetchUsers = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/api/users");
-      const data = await response.json();
-      setUsers(data);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  };
-
   useState(() => {
     fetchCars();
-    fetchUsers();
   }, []);
 
   const [status, setStatus] = useState(null);
@@ -120,25 +105,6 @@ export default function FormRental() {
                     <div className="row">
                       <div className="col-md-6">
                         <div className="form-group">
-                          <label>Penyewa</label>
-                          <select
-                            name="user_id"
-                            value={formData.user_id}
-                            onChange={handleChange}
-                            className="form-control"
-                            required
-                          >
-                            <option value="">Pilih Penyewa</option>
-                            {users.map((user) => (
-                              <option key={user.id} value={user.id}>
-                                {user.name}
-                              </option>
-                            ))}
-                          </select>
-                        </div>
-                      </div>
-                      <div className="col-md-6">
-                        <div className="form-group">
                           <label>Mobil</label>
                           <select
                             name="car_id"
@@ -153,6 +119,23 @@ export default function FormRental() {
                                 {car.model}
                               </option>
                             ))}
+                          </select>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div className="form-group">
+                          <label>Metode Pembayaran</label>
+                          <select
+                            name="payment_method"
+                            value={formData.payment_method}
+                            onChange={handleChange}
+                            className="form-control"
+                            required
+                          >
+                            <option value="">Pilih Metode Pembayaran</option>
+                            <option value="TUNAI">Tunai</option>
+                            <option value="KARTU KREDIT">Kartu Kredit</option>
+                            <option value="TRANSFER BANK">Transfer Bank</option>
                           </select>
                         </div>
                       </div>
@@ -183,26 +166,6 @@ export default function FormRental() {
                             className="form-control"
                             required
                           />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="row mt-3">
-                      <div className="col-md-6">
-                        <div className="form-group">
-                          <label>Metode Pembayaran</label>
-                          <select
-                            name="payment_method"
-                            value={formData.payment_method}
-                            onChange={handleChange}
-                            className="form-control"
-                            required
-                          >
-                            <option value="">Pilih Metode Pembayaran</option>
-                            <option value="TUNAI">Tunai</option>
-                            <option value="KARTU KREDIT">Kartu Kredit</option>
-                            <option value="TRANSFER BANK">Transfer Bank</option>
-                          </select>
                         </div>
                       </div>
                     </div>

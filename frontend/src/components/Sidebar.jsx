@@ -37,16 +37,6 @@ const Sidebar = () => {
             </li>
             <li
               className={`nav-item ${
-                location.pathname === "/admin/users" ? "active" : ""
-              }`}
-            >
-              <NavLink to="/admin/users">
-                <i className="fas fa-users" />
-                <p>Data User</p>
-              </NavLink>
-            </li>
-            <li
-              className={`nav-item ${
                 location.pathname === "/admin/cars" ? "active" : ""
               }`}
             >

@@ -1,9 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Dashboard from "./page/admin/Dashboard";
-import User from "./page/admin/user/User";
-import FormUser from "./page/admin/user/form/AddUser";
-import FormUpdateUser from "./page/admin/user/form/UpdateUser";
 import Car from "./page/admin/car/Car";
 import FormCar from "./page/admin/car/form/AddCar";
 import FormUpdateCar from "./page/admin/car/form/UpdateCar";
@@ -22,9 +19,6 @@ function App() {
         <Route path="/admin/*" element={<ProtectedRoute />}>
           <Route element={<Layout />}>
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="users" element={<User />} />
-            <Route path="users/form" element={<FormUser />} />
-            <Route path="users/form/:id" element={<FormUpdateUser />} />
             <Route path="cars" element={<Car />} />
             <Route path="cars/form" element={<FormCar />} />
             <Route path="cars/form/:id" element={<FormUpdateCar />} />

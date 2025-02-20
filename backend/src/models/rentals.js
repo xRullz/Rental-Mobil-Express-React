@@ -1,15 +1,13 @@
 import koneksi from "../models/db.js";
 
 const selectRentals = (callback) => {
-  const q = `SELECT rentals.id, users.name AS user_name, cars.model AS car_model, rentals.start_date, rentals.end_date, rentals.total_price, rentals.status
+  const q = `SELECT rentals.id, cars.model AS car_model, rentals.start_date, rentals.end_date, rentals.total_price, rentals.status
                FROM rentals 
-               JOIN users ON rentals.user_id = users.id
                JOIN cars ON rentals.car_id = cars.id`;
   koneksi.query(q, callback);
 };
 
 const insertRental = (
-  user_id,
   car_id,
   start_date,
   end_date,
@@ -17,18 +15,17 @@ const insertRental = (
   status,
   callback
 ) => {
-  const q = `INSERT INTO rentals (user_id, car_id, start_date, end_date, total_price, status) VALUES (?, ?, ?, ?, ?, ?)`;
+  const q = `INSERT INTO rentals (car_id, start_date, end_date, total_price, status) VALUES (?, ?, ?, ?, ?)`;
   koneksi.query(
     q,
-    [user_id, car_id, start_date, end_date, total_price, status],
+    [car_id, start_date, end_date, total_price, status],
     callback
   );
 };
 
 const selectRentalById = (id, callback) => {
-  const q = `SELECT rentals.id, users.id AS user_id, cars.id AS car_id, users.name AS user_name, cars.model AS car_model, rentals.start_date, rentals.end_date, rentals.total_price, rentals.status
+  const q = `SELECT rentals.id, cars.id AS car_id, cars.model AS car_model, rentals.start_date, rentals.end_date, rentals.total_price, rentals.status
   FROM rentals 
-  JOIN users ON rentals.user_id = users.id 
   JOIN cars ON rentals.car_id = cars.id 
   WHERE rentals.id = ?`;
   koneksi.query(q, [id], callback);
