@@ -7,10 +7,13 @@ const AuthLayout = () => {
     return () => {
       document.body.classList.remove("bg-auth");
     };
-  });
+  }, []);
+
   return (
     <div>
-      <Suspense fallback={<Outlet />}></Suspense>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };

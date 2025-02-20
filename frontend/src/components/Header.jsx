@@ -1,6 +1,22 @@
-// import React from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/");
+  };
   return (
     <div className="main-header">
       <div className="main-header-logo">
@@ -21,48 +37,15 @@ const Header = () => {
       <nav className="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
         <div className="container-fluid">
           <ul className="navbar-nav topbar-nav ms-md-auto align-items-center">
-            <li className="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none">
-              <a
-                className="nav-link dropdown-toggle"
-                data-bs-toggle="dropdown"
-                href="#"
-                role="button"
-                aria-expanded="false"
-                aria-haspopup="true"
-              >
-                <i className="fa fa-search" />
-              </a>
-              <ul className="dropdown-menu dropdown-search animated fadeIn">
-                <form className="navbar-left navbar-form nav-search">
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      placeholder="Search ..."
-                      className="form-control"
-                    />
-                  </div>
-                </form>
-              </ul>
-            </li>
             <li className="nav-item topbar-user dropdown hidden-caret">
-              <a
-                className="dropdown-toggle profile-pic"
-                data-bs-toggle="dropdown"
-                href="#"
-                aria-expanded="false"
-              >
-                <div className="avatar-sm">
-                  <img
-                    src="assets/backend/img/profile.jpg"
-                    alt="..."
-                    className="avatar-img rounded-circle"
-                  />
-                </div>
-                <span className="profile-username">
-                  <span className="op-7">Hi, Defi</span>
-                  <span className="fw-bold"></span>
-                </span>
-              </a>
+              <span className="profile-username">
+                {user ? `Hi, ${user.name}` : "Hi, Guest"}
+              </span>
+            </li>
+            <li className="nav-item">
+              <button onClick={handleLogout} className="btn btn-link  ms-3">
+                <i className="fa fa-sign-out-alt" style={{ fontSize: "1.5rem" }}></i>
+              </button>
             </li>
           </ul>
         </div>

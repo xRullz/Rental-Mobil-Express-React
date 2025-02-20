@@ -11,13 +11,16 @@ import Rental from "./page/admin/rentals/Rental";
 import FormRental from "./page/admin/rentals/form/AddRental";
 import FormUpdateRental from "./page/admin/rentals/form/UpdateRental";
 import Payment from "./page/admin/payments/Payment";
+import AuthLayout from "./layouts/AuthLayout";
+import Login from "./page/auth/Login";
+import ProtectedRoute from "./components/ProtectedRoute"; 
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/admin/*" element={<Layout />}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/admin/*" element={<ProtectedRoute />}>
+          <Route element={<Layout />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="users" element={<User />} />
             <Route path="users/form" element={<FormUser />} />
@@ -29,14 +32,14 @@ function App() {
             <Route path="rentals/form" element={<FormRental />} />
             <Route path="rentals/form/:id" element={<FormUpdateRental />} />
             <Route path="payments" element={<Payment />} />
+          </Route>
+        </Route>
 
-          </Route>
-          <Route path="/" element={<Layout />}>
-            {/* <Route path="/" element={<Dashboard />} /> */}
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </>
+        <Route path="/" element={<AuthLayout />}>
+          <Route path="/" element={<Login />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

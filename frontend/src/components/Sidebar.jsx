@@ -7,6 +7,7 @@ const Sidebar = () => {
     <div className="sidebar" data-background-color="dark">
       <div className="sidebar-logo">
         <div className="logo-header" data-background-color="dark">
+          <h4 className="logo text-center text-light">Rental Mobil</h4>
           <div className="nav-toggle">
             <button className="btn btn-toggle toggle-sidebar">
               <i className="gg-menu-right" />
@@ -45,7 +46,9 @@ const Sidebar = () => {
               </NavLink>
             </li>
             <li
-              className={`nav-item ${location.pathname === "/admin/cars" ? "active" : ""}`}
+              className={`nav-item ${
+                location.pathname === "/admin/cars" ? "active" : ""
+              }`}
             >
               <NavLink to="/admin/cars">
                 <i className="fas fa-car" />
