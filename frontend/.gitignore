@@ -1,0 +1,61 @@
+# 1️⃣ Node Modules (Wajib)
+node_modules/
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
+
+# 2️⃣ Build Output
+dist/
+build/
+.out/
+.next/
+.vite/
+
+# 3️⃣ Environment Variables (Jangan pernah push file ini!)
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# 4️⃣ Log Files & Debugging
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+*.log
+
+# 5️⃣ OS & Editor Files (File lokal yang tidak perlu di-track)
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# 6️⃣ Cache & Temp Files
+.cache/
+.eslintcache
+*.pid
+*.seed
+*.pid.lock
+turbo/
+coverage/
+*.tmp
+
+# 7️⃣ Database & Uploads (Jika ada di backend)
+uploads/
+dump.sql
+*.sqlite
+*.sqlite3
+
+# 8️⃣ TypeScript (Opsional jika menggunakan TypeScript)
+*.tsbuildinfo
+
+# 9️⃣ Git Ignore untuk Frontend Vite
+.vite/
+.vitepress/
+
+#  🔟 Docker & Deployment (Jika digunakan)
+docker-compose.override.yml
+*.dockerignore
